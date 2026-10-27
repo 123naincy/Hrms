@@ -1,0 +1,17 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const employee_controller_1 = require("../controllers/employee.controller");
+const auth_middleware_1 = require("../middleware/auth.middleware");
+const role_middleware_1 = require("../middleware/role.middleware");
+const roles_1 = require("../constants/roles");
+const router = (0, express_1.Router)();
+const employeeController = new employee_controller_1.EmployeeController();
+router.post("/", auth_middleware_1.authenticate, (0, role_middleware_1.authorize)(roles_1.ROLES.SUPER_ADMIN, roles_1.ROLES.ADMIN, roles_1.ROLES.HR), (req, res) => employeeController.createEmployee(req, res));
+router.get("/:id", auth_middleware_1.authenticate, (0, role_middleware_1.authorize)(roles_1.ROLES.SUPER_ADMIN, roles_1.ROLES.ADMIN, roles_1.ROLES.HR), (req, res) => employeeController.getEmployeeById(req, res));
+router.get("/", auth_middleware_1.authenticate, (0, role_middleware_1.authorize)(roles_1.ROLES.SUPER_ADMIN, roles_1.ROLES.ADMIN, roles_1.ROLES.HR), (req, res) => employeeController.getEmployees(req, res));
+router.put("/:id", auth_middleware_1.authenticate, (0, role_middleware_1.authorize)(roles_1.ROLES.SUPER_ADMIN, roles_1.ROLES.ADMIN, roles_1.ROLES.HR), (req, res) => employeeController.updateEmployee(req, res));
+router.patch("/:id/status", auth_middleware_1.authenticate, (0, role_middleware_1.authorize)(roles_1.ROLES.SUPER_ADMIN, roles_1.ROLES.ADMIN, roles_1.ROLES.HR), (req, res) => employeeController.updateEmployeeStatus(req, res));
+router.patch("/:id/password", auth_middleware_1.authenticate, (0, role_middleware_1.authorize)(roles_1.ROLES.SUPER_ADMIN, roles_1.ROLES.ADMIN, roles_1.ROLES.HR), (req, res) => employeeController.resetPassword(req, res));
+router.delete("/:id", auth_middleware_1.authenticate, (0, role_middleware_1.authorize)(roles_1.ROLES.SUPER_ADMIN), (req, res) => employeeController.deleteEmployee(req, res));
+exports.default = router;

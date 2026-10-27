@@ -1,0 +1,26 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const auth_routes_1 = __importDefault(require("./auth.routes"));
+const employee_routes_1 = __importDefault(require("./employee.routes"));
+const attendance_routes_1 = __importDefault(require("./attendance.routes"));
+const weekOff_routes_1 = __importDefault(require("./weekOff.routes"));
+const leave_routes_1 = __importDefault(require("./leave.routes"));
+const leaveBalance_routes_1 = __importDefault(require("./leaveBalance.routes"));
+const leaveCalculation_routes_1 = __importDefault(require("./leaveCalculation.routes"));
+const leaveRequest_routes_1 = __importDefault(require("./leaveRequest.routes"));
+const leaveApproval_routes_1 = __importDefault(require("./leaveApproval.routes"));
+const router = (0, express_1.Router)();
+router.use("/auth", auth_routes_1.default);
+router.use("/employees", employee_routes_1.default);
+router.use("/attendance", attendance_routes_1.default);
+router.use("/week-offs", weekOff_routes_1.default);
+router.use("/leaves", leave_routes_1.default);
+router.use("/leave-balances", leaveBalance_routes_1.default);
+router.use("/leave-calculation", leaveCalculation_routes_1.default);
+router.use("/leave-requests", leaveRequest_routes_1.default);
+router.use("/leave-requests", leaveApproval_routes_1.default);
+exports.default = router;
